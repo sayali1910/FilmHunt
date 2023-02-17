@@ -3,20 +3,32 @@ import styled from "styled-components";
 const Snackbar = React.forwardRef((props, ref) => {
   const childSnackBarRef = useRef(null);
   const textRef = useRef(null);
+  let opacityCount = 1;
+  // let opacityInterval = setInterval(() => {
+  //   opacityCount = opacityCount - 0.1;
+  //   childSnackBarRef.current.style.opacity = opacityCount;
+  // }, 1000);
   useImperativeHandle(ref, () => ({
     handleSnackBar: () => {
       childSnackBarRef.current.style.display = "flex";
+      opacityCount = 1;
+      childSnackBarRef.current.style.opacity = 1;
       textRef.current.textContent = "Movie Added To Wishlist";
+      clearTimeout();
+      setTimeout(() => {
+        let opacityInterval = setInterval(() => {
+          opacityCount = opacityCount - 0.1;
+          console.log("^^", opacityCount);
+          childSnackBarRef.current.style.opacity = opacityCount;
+          if (opacityCount < 0) {
+            clearInterval(opacityInterval);
+            childSnackBarRef.current.style.display = "none";
+          }
+        }, 1000);
+      }, 5000);
     },
   }));
 
-  //   useEffect(() => {
-  //     handleSnackBar();
-  //   }, []);
-  //;
-  //   const handleSnackBar = () => {
-  //     snackBarRef.current.style.display = "flex";
-  //   };
   const Box = styled.div`
     background-color: transparent;
     //border: 5px solid;
