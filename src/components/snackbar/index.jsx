@@ -26,10 +26,11 @@ const Snackbar = React.forwardRef((props, ref) => {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
+    padding-bottom: 50px;
     .wrapperDiv {
       display: none;
       position: relative;
